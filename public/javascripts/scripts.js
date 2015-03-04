@@ -1767,7 +1767,33 @@ angular.module('periodicTable')
 	}]);
 
 angular.module('periodicTable')
+	.factory('colorLum',[function() {
+		//http://www.sitepoint.com/javascript-generate-lighter-darker-color/
+		return function ColorLuminance(hex, lum) {
+
+			// validate hex string
+			hex = String(hex).replace(/[^0-9a-f]/gi, '');
+			if (hex.length < 6) {
+				hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+			}
+			lum = lum || 0;
+
+			// convert to decimal and change luminosity
+			var rgb = "#", c, i;
+			for (i = 0; i < 3; i++) {
+				c = parseInt(hex.substr(i*2,2), 16);
+				c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+				rgb += ("00"+c).substr(c.length);
+			}
+
+			return rgb;
+		}
+	}]);
+
+angular.module('periodicTable')
 	.controller('PeriodicCtrl',['$scope','elements','viewChanger','views',function($scope,elements,viewChanger,views) {
+		
+		//should i watch entire object for overall changes?
 		$scope.$watch(function() {
 			return viewChanger.get('zoom').get('factor');
 		},function(newVal,oldVal) {
@@ -1776,6 +1802,8 @@ angular.module('periodicTable')
 				height: 100*newVal
 			};		 
 		});
+		
+		$scope.currentView = viewChanger.get('currentView');
 
 		$scope.views = views.get();
 		
@@ -1783,6 +1811,7 @@ angular.module('periodicTable')
 		
 		$scope.changeView = function(name) {
 			viewChanger.set('currentView',name);
+			$scope.currentView = viewChanger.get('currentView');
 		};
 		
 		$scope.zoom = function(where) {
@@ -1816,7 +1845,7 @@ angular.module('periodicTable')
 	}]);
 
 angular.module('periodicTable')
-	.directive('element',['helpers','views','viewChanger',function(helpers,views,viewChanger) {
+	.directive('element',['helpers','views','viewChanger','colorLum',function(helpers,views,viewChanger,colorLum) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -1900,12 +1929,12 @@ angular.module('periodicTable')
 				},true);
 				
 				function rect(svg,props) {
-					svg
+					$(svg)
 					.attr('width',props.width())
 					.attr('height',props.height())
 					.attr('x',props.coordinate('x'))
 					.attr('y',props.coordinate('y'))
-					.attr('fill',props.get('fill'));				 
+					.attr('fill',props.get('fill'));		
 				}
 				
 				function text(svg,props) {
@@ -1922,7 +1951,7 @@ angular.module('periodicTable')
 					
 					$(svg)
 					.children('.tspan-big')
-					.attr('font-size',props.width()*.3);
+					.attr('font-size',props.width()*.2);
 					
 					$(svg)
 					.children('tspan')
@@ -1931,7 +1960,7 @@ angular.module('periodicTable')
 					.each(function(i) {
 						if(i > 0) {
 							$(this)
-							.attr('dy',props.height()*.3);
+							.attr('dy',props.height()*.2);
 						}
 					});
 					

@@ -15,7 +15,7 @@
 	<div ng-controller="PeriodicCtrl">
 		<div view-changer>
 			<ul class="list-inline">
-				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-attr-value="{{view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
+				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-class="{active: view.name === currentView}" ng-attr-value="{{view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
 			</ul>
 			<ul class="list-unstyled zoomer">
 				<li><button ng-click="zoom('in')" class="btn btn-default glyphicon glyphicon-plus"></button></li>
@@ -28,6 +28,7 @@
 			  <tspan class="tspan-small">{{el.atomicNumber}}</tspan>
 			  <tspan class="tspan-big">{{el.symbol}}</tspan>
 			  <tspan class="tspan-small">{{el.name}}</tspan>
+			  <tspan class="tspan-small">{{el.calculateWeightedMass(3)}}</tspan>
 		  </text>
 		</svg>
 	</div>
