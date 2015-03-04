@@ -1909,16 +1909,29 @@ angular.module('periodicTable')
 				}
 				
 				function text(svg,props) {
+					var centerX = props.coordinate('x')+props.width()/2;
+					
 					$(svg)
-					.attr('width',props.width())
-					.attr('height',props.height())
-					.attr('x',props.coordinate('x'))
-					.attr('y',props.coordinate('y'))
-					.attr('font-size',10)
+					.attr('x',centerX)
+					.attr('y',props.coordinate('y')+props.height()*.1)
+					.attr('text-anchor','middle')
+					
+					$(svg)
+					.children('.tspan-small')
+					.attr('font-size',props.width()*.15)
+					
+					$(svg)
+					.children('.tspan-big')
+					.attr('font-size',props.width()*.3);
+					
+					$(svg)
 					.children('tspan')
-					.each(function(i) {						
+					.attr('alignment-baseline','hanging')
+					.attr('x',centerX)
+					.each(function(i) {
 						if(i > 0) {
-							$(this).attr('dy',20);
+							$(this)
+							.attr('dy',props.height()*.3);
 						}
 					});
 					

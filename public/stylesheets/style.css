@@ -1,5 +1,23 @@
+body {
+	margin: 0;
+	padding: 2%;
+}
+
 .zoomer {
   position: fixed;
   right: 5%;
   bottom: 5%;
+}
+
+svg {
+	margin: 0 auto;
+	display: block;
+}
+
+svg text {
+	fill: #333;
+}
+
+svg text .tspan-small {
+	fill: #444;
 }
