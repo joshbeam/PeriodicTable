@@ -1970,6 +1970,19 @@ angular.module('periodicTable')
 		};
 	}]);
 
+//angular.module('periodicTable')
+//	.directive('key',[function() {
+//		return {
+//			restrict: 'a',
+//			scope: {
+//				view: '='	
+//			},
+//			link: function(scope,element,attrs) {
+//				console.log(scope.view);
+//			}
+//		};
+//	}]);
+
 angular.module('periodicTable')
 	.filter('camelToNormal',[function() {
 		return function(text) {

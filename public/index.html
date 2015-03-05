@@ -22,14 +22,14 @@
 				<li><button ng-click="zoom('out')" class="btn btn-default glyphicon glyphicon-minus"></button></li>
 			</ul>
 		</div>
-		<svg periodic-table ng-attr-width="{{table.width}}" ng-attr-height="{{table.height}}">
-		  <rect element="el" ng-repeat="el in elements" />
-		  <text element="el" ng-repeat="el in elements">
-			  <tspan class="tspan-small">{{el.atomicNumber}}</tspan>
-			  <tspan class="tspan-big">{{el.symbol}}</tspan>
-			  <tspan class="tspan-small">{{el.name}}</tspan>
-			  <tspan class="tspan-small">{{el.calculateWeightedMass(3)}}</tspan>
-		  </text>
+		<svg periodic-table ng-attr-width="{{table.width}}" ng-attr-height="{{table.height}}">	
+			<rect element="el" ng-repeat="el in elements" />
+			<text element="el" ng-repeat="el in elements">
+				<tspan class="tspan-small">{{el.atomicNumber}}</tspan>
+				<tspan class="tspan-big">{{el.symbol}}</tspan>
+				<tspan class="tspan-small">{{el.name}}</tspan>
+				<tspan class="tspan-small">{{el.calculateWeightedMass(3)}}</tspan>
+			</text>
 		</svg>
 	</div>
 	<footer>
