@@ -11,11 +11,13 @@
 	<meta charset="utf-8">
 	<title>Periodic Table</title>
 </head>
-<body>
+<body ng-cloak>
 	<div ng-controller="PeriodicCtrl">
+		<h1>Periodic Table of Elements <small><i>visually understand the trends</i></small></h1>
 		<div view-changer>
 			<ul class="list-inline">
-				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-class="{active: view.name === currentView}" ng-attr-value="{{view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
+				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-class="{active: view.name === currentView}" ng-attr-value="{{view.name === 'atomicNumber' ? 'weight' : view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
+				<li ng-show="currentView === 'state'"><small><i>at room temperature (72&deg; F or 22&deg; C)</i></small></li>
 			</ul>
 			<ul class="list-unstyled zoomer">
 				<li><button ng-click="zoom('in')" class="btn btn-default glyphicon glyphicon-plus"></button></li>
@@ -32,14 +34,14 @@
 			</text>
 		</svg>
 	</div>
-	<footer>
+	<!--<footer>
 		<h5>Sources</h5>
 		<ul class="list-unstyled">
 			<li><a href="http://www.sisweb.com/referenc/source/exactmas.htm">Exact Masses of the Elements and Isotopic Abundances</a></li>
 			<li><a href="http://www.tracesciences.com/table.html">Stable Isotopes</a></li>
 			<li><a href="http://www.webelements.com/">Webelements</a></li>
 		</ul>
-	</footer>
+	</footer>-->
 	<script src="javascripts/scripts.js"></script>
 </body>
 </html>

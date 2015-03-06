@@ -2004,7 +2004,7 @@ angular.module('periodicTable')
 	}]);
 
 angular.module('periodicTable')
-	.factory('views',[function() {
+	.factory('views',['colorLum',function(colorLum) {
 		/*
 			All view names (e.g. state, metallicCharacter, etc.) must correspond to a property of an Element, and the values must correspond to those properties
 			
@@ -2062,6 +2062,12 @@ angular.module('periodicTable')
 							actinoid: {
 								fill: /*'#ffce69'*/ '#de7e7e'
 							}
+						}
+					},
+					{
+						name: 'atomicNumber',
+						values: function(scopeElement) {
+							return colorLum('#c4ffd3',-(+scopeElement.atomicNumber)/200);
 						}
 					},
 					{
@@ -2291,7 +2297,11 @@ angular.module('periodicTable')
 					// not very dynamic; can only go down 1 level, etc.
 					$.map(v,function(a,b) {
 						if(a.name === cV) {
-							fill = a.values[scope.scopeElement[cV]].fill;
+							if(typeof a.values === 'function') {
+								fill = a.values(scope.scopeElement);
+							} else {
+								fill = a.values[scope.scopeElement[cV]].fill;
+							}
 						}
 					});
 					
