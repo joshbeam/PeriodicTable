@@ -2031,43 +2031,63 @@ angular.module('periodicTable')
 					{
 						name: 'metallicCharacter',
 						// http://www.colorpicker.com/
-						values: {
-							nonmetal: {
-								fill: /*'#e3fab6'*/ '#bdfab6'
-							},
-							metalloid: {
-								fill: /*'#f7fab6'*/ '#f0fab6'
-							},
-							halogen: {
-								fill: /*'#b6facf'*/ '#b6fae6'
-							},
-							nobleGas: {
-								fill: '#b6f5fa'
-							},
-							alkali: {
-								fill: /*'#fab6b6'*/ '#c4b9b9'
-							},
-							alkaline: {
-								fill: /*'#faceb6'*/ '#e6b5b5'
-							},
-							transition: {
-								fill: /*'#fae4b6'*/ '#fab6b6'
-							},
-							postTransition: {
-								fill: /*'#ffce69'*/ '#fadab6'
-							},
-							lanthanoid: {
-								fill: /*'#fae4b6'*/ '#e89292'
-							},
-							actinoid: {
-								fill: /*'#ffce69'*/ '#de7e7e'
-							}
+						val: function(element) {
+							return { 
+								nonmetal: {
+									fill: /*'#e3fab6'*/ '#bdfab6'
+								},
+								metalloid: {
+									fill: /*'#f7fab6'*/ '#f0fab6'
+								},
+								halogen: {
+									fill: /*'#b6facf'*/ '#b6fae6'
+								},
+								nobleGas: {
+									fill: '#b6f5fa'
+								},
+								alkali: {
+									fill: /*'#fab6b6'*/ '#c4b9b9'
+								},
+								alkaline: {
+									fill: /*'#faceb6'*/ '#e6b5b5'
+								},
+								transition: {
+									fill: /*'#fae4b6'*/ '#fab6b6'
+								},
+								postTransition: {
+									fill: /*'#ffce69'*/ '#fadab6'
+								},
+								lanthanoid: {
+									fill: /*'#fae4b6'*/ '#e89292'
+								},
+								actinoid: {
+									fill: /*'#ffce69'*/ '#de7e7e'
+								}	
+							}[element.metallicCharacter];
 						}
 					},
 					{
-						name: 'atomicNumber',
-						values: function(scopeElement) {
-							return colorLum('#c4ffd3',-(+scopeElement.atomicNumber)/200);
+						name: 'weight',
+						val: function(element) {
+							return {
+								fill: colorLum('#c4ffd3',-(+element.atomicNumber)/200)
+							};
+						}
+					},
+					{
+						name: 'valenceElectrons',
+						val: function(element) {
+							var factor;
+							
+							if(+element.coords.group === 0) {
+								factor = 2/30;
+							} else {
+								factor = +element.coords.group/30;	
+							}
+							
+							return {
+								fill: colorLum('#e9aeda',-(factor))
+							};
 						}
 					},
 					{
@@ -2076,19 +2096,21 @@ angular.module('periodicTable')
 						// 2 = liquid
 						// 3 = gas
 						// 4 = unknown
-						values: {
-							1: {
-								fill: '#777'
-							},
-							2: {
-								fill: '#aaa'
-							},
-							3: {
-								fill: '#ddd'
-							},
-							4: {
-								fill: '#fff'
-							}
+						val: function(element) {
+							return {
+								1: {
+									fill: '#777'
+								},
+								2: {
+									fill: '#aaa'
+								},
+								3: {
+									fill: '#ddd'
+								},
+								4: {
+									fill: '#fff'
+								}
+							}[element.state];
 						}
 					}
 				];
@@ -2297,11 +2319,7 @@ angular.module('periodicTable')
 					// not very dynamic; can only go down 1 level, etc.
 					$.map(v,function(a,b) {
 						if(a.name === cV) {
-							if(typeof a.values === 'function') {
-								fill = a.values(scope.scopeElement);
-							} else {
-								fill = a.values[scope.scopeElement[cV]].fill;
-							}
+							fill = a.val(scope.scopeElement).fill;
 						}
 					});
 					

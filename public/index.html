@@ -9,14 +9,14 @@
 	<link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
 
 	<meta charset="utf-8">
-	<title>Periodic Table</title>
+	<title>Periodic Trend Visualization</title>
 </head>
 <body ng-cloak>
 	<div ng-controller="PeriodicCtrl">
 		<h1>Periodic Table of Elements <small><i>visually understand the trends</i></small></h1>
 		<div view-changer>
 			<ul class="list-inline">
-				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-class="{active: view.name === currentView}" ng-attr-value="{{view.name === 'atomicNumber' ? 'weight' : view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
+				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-class="{active: view.name === currentView}" ng-attr-value="{{view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
 				<li ng-show="currentView === 'state'"><small><i>at room temperature (72&deg; F or 22&deg; C)</i></small></li>
 			</ul>
 			<ul class="list-unstyled zoomer">
@@ -24,13 +24,14 @@
 				<li><button ng-click="zoom('out')" class="btn btn-default glyphicon glyphicon-minus"></button></li>
 			</ul>
 		</div>
-		<svg periodic-table ng-attr-width="{{table.width}}" ng-attr-height="{{table.height}}">	
+		<svg periodic-table ng-attr-width="{{table.width}}" ng-attr-height="{{table.height}}">
+			<text axis="x" data="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]"></text>
 			<rect element="el" ng-repeat="el in elements" />
 			<text element="el" ng-repeat="el in elements">
 				<tspan class="tspan-small">{{el.atomicNumber}}</tspan>
 				<tspan class="tspan-big">{{el.symbol}}</tspan>
 				<tspan class="tspan-small">{{el.name}}</tspan>
-				<tspan class="tspan-small">{{el.calculateWeightedMass(3)}}</tspan>
+				<tspan class="tspan-small">{{el.calculateWeightedMass(2)}}</tspan>
 			</text>
 		</svg>
 	</div>
