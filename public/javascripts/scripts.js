@@ -1262,7 +1262,7 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'thulium ',
+					name: 'thulium',
 					symbol: 'Tm',
 					state: 1,
 					metallicCharacter: 'lanthanoid',
@@ -1276,7 +1276,7 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'ytterbium ',
+					name: 'ytterbium',
 					symbol: 'Yb',
 					state: 1,
 					metallicCharacter: 'lanthanoid',
@@ -1290,7 +1290,7 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'lutetium ',
+					name: 'lutetium',
 					symbol: 'Lu',
 					state: 1,
 					metallicCharacter: 'lanthanoid',
@@ -1304,7 +1304,7 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'hafnium ',
+					name: 'hafnium',
 					symbol: 'Hf',
 					state: 1,
 					metallicCharacter: 'transition',
@@ -1318,7 +1318,237 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'francium ',
+					name: 'tantalum',
+					symbol: 'Ta',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '73',
+					coords: {
+						group: 5,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'tungsten',
+					symbol: 'W',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '74',
+					coords: {
+						group: 6,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'rhenium',
+					symbol: 'Re',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '75',
+					coords: {
+						group: 7,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'osmium',
+					symbol: 'Os',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '76',
+					coords: {
+						group: 8,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'iridium',
+					symbol: 'Ir',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '77',
+					coords: {
+						group: 9,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'platinum',
+					symbol: 'Pt',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '78',
+					coords: {
+						group: 10,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'gold',
+					symbol: 'Au',
+					state: 1,
+					metallicCharacter: 'transition',
+					atomicNumber: '79',
+					coords: {
+						group: 11,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'mercury',
+					symbol: 'Hg',
+					state: 2,
+					metallicCharacter: 'transition',
+					atomicNumber: '80',
+					coords: {
+						group: 12,
+						period: 6
+					},
+					isotopes: [
+						{
+							nucleons: '196',
+							mass: '195.965812',
+							abundance: '.15'							
+						},
+						{
+							nucleons: '198',
+							mass: '197.966760',
+							abundance: '10.10'							
+						},
+						{
+							nucleons: '199',
+							mass: '198.968269',
+							abundance: '17.00'							
+						},
+						{
+							nucleons: '200',
+							mass: '199.968316',
+							abundance: '23.10'							
+						},
+						{
+							nucleons: '201',
+							mass: '200.970293',
+							abundance: '13.20'							
+						},
+						{
+							nucleons: '202',
+							mass: '201.970632',
+							abundance: '29.65'							
+						},
+						{
+							nucleons: '204',
+							mass: '203.973481',
+							abundance: '6.80'							
+						}
+					]
+				}),
+				new Element({
+					name: 'thallium',
+					symbol: 'Tl',
+					state: 1,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '81',
+					coords: {
+						group: 13,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'lead',
+					symbol: 'Pb',
+					state: 1,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '82',
+					coords: {
+						group: 14,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'bismuth',
+					symbol: 'Bi',
+					state: 1,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '83',
+					coords: {
+						group: 15,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'polonium',
+					symbol: 'Po',
+					state: 1,
+					metallicCharacter: 'metalloid',
+					atomicNumber: '84',
+					coords: {
+						group: 16,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'astatine',
+					symbol: 'At',
+					state: 1,
+					metallicCharacter: 'halogen',
+					atomicNumber: '85',
+					coords: {
+						group: 17,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'radon',
+					symbol: 'Rn',
+					state: 1,
+					metallicCharacter: 'nobleGas',
+					atomicNumber: '86',
+					coords: {
+						group: 18,
+						period: 6
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'francium',
 					symbol: 'Fr',
 					state: 1,
 					metallicCharacter: 'alkali',
@@ -1332,7 +1562,7 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'radium ',
+					name: 'radium',
 					symbol: 'Ra',
 					state: 1,
 					metallicCharacter: 'alkaline',
@@ -1570,51 +1800,199 @@ angular.module('periodicTable')
 					]
 				}),
 				new Element({
-					name: 'mercury',
-					symbol: 'Hg',
-					state: 2,
+					name: 'dubnium',
+					symbol: 'Db',
+					state: 4,
 					metallicCharacter: 'transition',
-					atomicNumber: '80',
+					atomicNumber: '105',
 					coords: {
-						group: 12,
-						period: 6
+						group: 5,
+						period: 7
 					},
 					isotopes: [
-						{
-							nucleons: '196',
-							mass: '195.965812',
-							abundance: '.15'							
-						},
-						{
-							nucleons: '198',
-							mass: '197.966760',
-							abundance: '10.10'							
-						},
-						{
-							nucleons: '199',
-							mass: '198.968269',
-							abundance: '17.00'							
-						},
-						{
-							nucleons: '200',
-							mass: '199.968316',
-							abundance: '23.10'							
-						},
-						{
-							nucleons: '201',
-							mass: '200.970293',
-							abundance: '13.20'							
-						},
-						{
-							nucleons: '202',
-							mass: '201.970632',
-							abundance: '29.65'							
-						},
-						{
-							nucleons: '204',
-							mass: '203.973481',
-							abundance: '6.80'							
-						}
+						
+					]
+				}),
+				new Element({
+					name: 'seaborgium',
+					symbol: 'Sg',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '106',
+					coords: {
+						group: 6,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'bohrium',
+					symbol: 'Bh',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '107',
+					coords: {
+						group: 7,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'hassium',
+					symbol: 'Hs',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '108',
+					coords: {
+						group: 8,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'meitnerium',
+					symbol: 'Mt',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '109',
+					coords: {
+						group: 9,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'darmstadtium',
+					symbol: 'Ds',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '110',
+					coords: {
+						group: 10,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'roentgenium',
+					symbol: 'Rg',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '111',
+					coords: {
+						group: 11,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'copernicium',
+					symbol: 'Cn',
+					state: 4,
+					metallicCharacter: 'transition',
+					atomicNumber: '112',
+					coords: {
+						group: 12,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'ununtrium',
+					symbol: 'Uut',
+					state: 4,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '113',
+					coords: {
+						group: 13,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'flerovium',
+					symbol: 'Fl',
+					state: 4,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '114',
+					coords: {
+						group: 14,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'ununpentium',
+					symbol: 'Uup',
+					state: 4,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '115',
+					coords: {
+						group: 15,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'livermorium',
+					symbol: 'Lv',
+					state: 4,
+					metallicCharacter: 'postTransition',
+					atomicNumber: '116',
+					coords: {
+						group: 16,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'ununseptium',
+					symbol: 'Uus',
+					state: 4,
+					metallicCharacter: 'halogen',
+					atomicNumber: '117',
+					coords: {
+						group: 17,
+						period: 7
+					},
+					isotopes: [
+						
+					]
+				}),
+				new Element({
+					name: 'ununoctium',
+					symbol: 'Uuo',
+					state: 4,
+					metallicCharacter: 'nobleGas',
+					atomicNumber: '118',
+					coords: {
+						group: 18,
+						period: 7
+					},
+					isotopes: [
+						
 					]
 				})
 			];				
@@ -1697,10 +2075,10 @@ angular.module('periodicTable')
 								fill: '#777'
 							},
 							2: {
-								fill: '#bbb'
+								fill: '#aaa'
 							},
 							3: {
-								fill: '#f2f2f2'
+								fill: '#ddd'
 							},
 							4: {
 								fill: '#fff'
