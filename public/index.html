@@ -1,48 +1,24 @@
 <!DOCTYPE html>
 <html ng-app="periodicTable">
 <head>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-	<script src="//code.jquery.com/jquery.min.js"></script>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-	<link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<link href="stylesheets/bundle.css" rel="stylesheet" type="text/css" />
 
 	<meta charset="utf-8">
 	<title>Periodic Trend Visualization</title>
 </head>
-<body ng-cloak>
-	<div ng-controller="PeriodicCtrl">
+<body>
+	<div ng-controller="PeriodicTableController as vm">
 		<h1>Periodic Table of Elements <small><i>visually understand the trends</i></small></h1>
-		<div view-changer>
-			<ul class="list-inline">
-				<li ng-repeat="view in views"><input type="button" class="btn btn-default" ng-class="{active: view.name === currentView}" ng-attr-value="{{view.name | camelToNormal}}" ng-attr-name="{{view.name}}" ng-click="changeView(view.name)" /></li>
-				<li ng-show="currentView === 'state'"><small><i>at room temperature (72&deg; F or 22&deg; C)</i></small></li>
-			</ul>
-			<ul class="list-unstyled zoomer">
-				<li><button ng-click="zoom('in')" class="btn btn-default glyphicon glyphicon-plus"></button></li>
-				<li><button ng-click="zoom('out')" class="btn btn-default glyphicon glyphicon-minus"></button></li>
-			</ul>
-		</div>
-		<svg periodic-table ng-attr-width="{{table.width}}" ng-attr-height="{{table.height}}">
-			<text axis="x" data="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]"></text>
-			<rect element="el" ng-repeat="el in elements" />
-			<text element="el" ng-repeat="el in elements">
-				<tspan class="tspan-small">{{el.atomicNumber}}</tspan>
-				<tspan class="tspan-big">{{el.symbol}}</tspan>
-				<tspan class="tspan-small">{{el.name}}</tspan>
-				<tspan class="tspan-small">{{el.calculateWeightedMass(2)}}</tspan>
-			</text>
+		<svg width="1800" height="900">
+			<g chemical-element="element" ng-repeat="element in vm.chemicalElements">
+				<rect width="50" height="50"></rect>
+				<text>{{element.atomicNumber}}</text>
+				<text>{{element.symbol}}</text>
+				<text>{{element.name}}</text>
+			</g>
 		</svg>
 	</div>
-	<!--<footer>
-		<h5>Sources</h5>
-		<ul class="list-unstyled">
-			<li><a href="http://www.sisweb.com/referenc/source/exactmas.htm">Exact Masses of the Elements and Isotopic Abundances</a></li>
-			<li><a href="http://www.tracesciences.com/table.html">Stable Isotopes</a></li>
-			<li><a href="http://www.webelements.com/">Webelements</a></li>
-		</ul>
-	</footer>-->
-	<script src="javascripts/scripts.js"></script>
+
+	<script src="javascripts/dist/scripts.js"></script>
 </body>
 </html>
