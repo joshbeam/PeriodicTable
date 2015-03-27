@@ -11,27 +11,22 @@ var gulp = require('gulp'),
 		'./bower_components/bootstrap/dist/js/bootstrap.js',
 		'./public/javascripts/src/*.js',
 		'./public/javascripts/src/periodic-table/periodic-table.module.js',
+		'./public/javascripts/src/trends/trend-viewer.factory.js',
+		'./public/javascripts/src/trends/zoomer.directive.js',
 		'./public/javascripts/src/chemical-elements/chemical-element.js',
 		'./public/javascripts/src/chemical-elements/chemical-elements.factory.js',
 		'./public/javascripts/src/chemical-elements/chemical-element.directive.js',
+		'./public/javascripts/src/periodic-table/periodic-table.directive.js',
 		'./public/javascripts/src/periodic-table/periodic-table.controller.js'
 	];
 
-gulp.task('sass',function(cb) {
-	gulp.src('./public/stylesheets/*.scss')
-		.pipe(sass())
-		.pipe(minifyCSS())
-		.pipe(gulp.dest('./public/stylesheets'));	
-
-	cb();
-});
-
-gulp.task('css',['sass'],function() {
+gulp.task('css',function() {
 	gulp.src([
 		'./bower_components/bootstrap/dist/css/bootstrap-theme.css',
 		'./bower_components/bootstrap/dist/css/bootstrap.css',
-		'./public/stylesheets/*.css'
+		'./public/stylesheets/*.scss'
 		])
+		.pipe(sass())
 		.pipe(concatCss('bundle.css'))
 		.pipe(gulp.dest('./public/stylesheets'))
 		.pipe(rename('bundle.min.css'))

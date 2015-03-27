@@ -7,15 +7,17 @@
 	};
 
 	global.ChemicalElement = ChemicalElement;
+	
 
 	////////////////
 
 	function ChemicalElement(config) {
-		this.name = config['Name'];
-		this.symbol = config['Symbol'];
-		this.atomicNumber = +config['Atomic Number'];
-		this.group = +config['Group'];
-		this.period = +config['Period'];
+		this['Element'] = config['Element'];
+		this['Symbol'] = config['Symbol'];
+		this['Atomic Number'] = +config['Atomic Number'];
+		this['Type'] = config['Type'];
+		this['Group'] = +config['Group'];
+		this['Period'] = +config['Period'];
 	}
 
 	function getProperty(prop) {

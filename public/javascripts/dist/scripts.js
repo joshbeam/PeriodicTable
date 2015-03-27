@@ -28507,6 +28507,182 @@ if (typeof jQuery === 'undefined') {
 
 	angular.module('periodicTable',[]);
 })(angular);
+;(function(app) {
+	'use strict';
+
+	app
+	.factory('trendViewer',trendViewer);
+
+	function trendViewer() {
+		var views = [
+				{
+					name: 'Type',
+					values: {
+						'Nonmetal': {
+							fill: '#bdfab6'
+						},
+						'Noble Gas': {
+							fill: '#b6f5fa'
+						},
+						'Alkali Metal': {
+							fill: '#c4b9b9'
+						},
+						'Alkaline Earth Metal': {
+							fill: '#e6b5b5'
+						},
+						'Metalloid': {
+							fill: '#f0fab6'
+						},
+						'Halogen': {
+							fill: '#b6fae6'
+						},
+						'Metal': {
+							fill: '#fab6b6'
+						},
+						'Transition Metal': {
+							fill: '#fab6b6'
+						},
+						'Lanthanide': {
+							fill: '#e89292'
+						},
+						'Actinide': {
+							fill: '#de7e7e'
+						},
+						'Transactinide': {
+							fill: '#fadab6'
+						},
+						'': {
+							fill: '#fff'
+						}
+					}
+				}
+			],
+			factor = 6,
+			exports = {
+				currentView: views[0].name,
+				factor: {
+					get: function() {
+						return factor;
+					},
+					up: function() {
+						factor++;
+					},
+					down: function() {
+						if(factor > 1) {
+							factor--;
+						}
+					}
+				},
+				views: views
+			};
+
+		return exports;
+	}
+
+})(angular.module('periodicTable'));
+
+	// 	var views = {
+	// 		// doesn't follow recursive get pattern...
+	// 		// maybe use getAll and get
+	// 		get: function() {
+	// 			return [
+	// 				{
+	// 					name: 'metallicCharacter',
+	// 					// http://www.colorpicker.com/
+	// 					values: {
+	// 						nonmetal: {
+	// 							fill: /*'#e3fab6'*/ '#bdfab6'
+	// 						},
+	// 						metalloid: {
+	// 							fill: /*'#f7fab6'*/ '#f0fab6'
+	// 						},
+	// 						halogen: {
+	// 							fill: /*'#b6facf'*/ '#b6fae6'
+	// 						},
+	// 						nobleGas: {
+	// 							fill: '#b6f5fa'
+	// 						},
+	// 						alkali: {
+	// 							fill: /*'#fab6b6'*/ '#c4b9b9'
+	// 						},
+	// 						alkaline: {
+	// 							fill: /*'#faceb6'*/ '#e6b5b5'
+	// 						},
+	// 						transition: {
+	// 							fill: /*'#fae4b6'*/ '#fab6b6'
+	// 						},
+	// 						postTransition: {
+	// 							fill: /*'#ffce69'*/ '#fadab6'
+	// 						},
+	// 						lanthanoid: {
+	// 							fill: /*'#fae4b6'*/ '#e89292'
+	// 						},
+	// 						actinoid: {
+	// 							fill: /*'#ffce69'*/ '#de7e7e'
+	// 						}
+	// 					}
+	// 				},
+	// 				{
+	// 					name: 'state',
+	// 					// 1 = solid
+	// 					// 2 = liquid
+	// 					// 3 = gas
+	// 					// 4 = unknown
+	// 					values: {
+	// 						1: {
+	// 							fill: '#777'
+	// 						},
+	// 						2: {
+	// 							fill: '#bbb'
+	// 						},
+	// 						3: {
+	// 							fill: '#f2f2f2'
+	// 						},
+	// 						4: {
+	// 							fill: '#fff'
+	// 						}
+	// 					}
+	// 				}
+	// 			];
+	// 		}
+	// 	};
+		
+	// 	return views;
+
+	// }]);
+;(function(app) {
+	'use strict';
+
+	app
+	.directive('zoomer',zoomer);
+
+	zoomer.$inject = ['$rootScope','trendViewer'];
+
+	function zoomer($rootScope,trendViewer) {
+		var d = {
+			restrict: 'A',
+			link: link
+		};
+
+		return d;
+
+		function link(scope, element, attrs) {
+			var $el = $(element[0]),
+				$li = $el.children('li');
+
+			$li.children('button[in]').on('click',function() {
+				trendViewer.factor.up();
+				$rootScope.$broadcast('factor.up',trendViewer.factor.get());
+			});
+
+			$li.children('button[out]').on('click',function() {
+				trendViewer.factor.down();
+				$rootScope.$broadcast('factor.down',trendViewer.factor.get());
+			});
+		}
+	}
+
+})(angular.module('periodicTable'));
 ;(function(global) {
 
 	'use strict';
@@ -28516,15 +28692,17 @@ if (typeof jQuery === 'undefined') {
 	};
 
 	global.ChemicalElement = ChemicalElement;
+	
 
 	////////////////
 
 	function ChemicalElement(config) {
-		this.name = config['Name'];
-		this.symbol = config['Symbol'];
-		this.atomicNumber = +config['Atomic Number'];
-		this.group = +config['Group'];
-		this.period = +config['Period'];
+		this['Element'] = config['Element'];
+		this['Symbol'] = config['Symbol'];
+		this['Atomic Number'] = +config['Atomic Number'];
+		this['Type'] = config['Type'];
+		this['Group'] = +config['Group'];
+		this['Period'] = +config['Period'];
 	}
 
 	function getProperty(prop) {
@@ -28603,7 +28781,20 @@ if (typeof jQuery === 'undefined') {
 
 		Service.prototype = {
 			populate: populate,
-			getAll: getAll
+			getAll: getAll,
+			types: [
+				'Nonmetal',
+				'Noble Gas',
+				'Alkali Metal',
+				'Alkaline Earth Metal',
+				'Metalloid',
+				'Halogen',
+				'Metal',
+				'Transition Metal',
+				'Lanthanide',
+				'Actinide',
+				'Transactinide'
+			]
 		};
 
 		return new Service();
@@ -28632,6 +28823,76 @@ if (typeof jQuery === 'undefined') {
 	}
 
 })(angular.module('periodicTable'),ChemicalElement);
+
+	// 	var views = {
+	// 		// doesn't follow recursive get pattern...
+	// 		// maybe use getAll and get
+	// 		get: function() {
+	// 			return [
+	// 				{
+	// 					name: 'metallicCharacter',
+	// 					// http://www.colorpicker.com/
+	// 					values: {
+	// 						nonmetal: {
+	// 							fill: /*'#e3fab6'*/ '#bdfab6'
+	// 						},
+	// 						metalloid: {
+	// 							fill: /*'#f7fab6'*/ '#f0fab6'
+	// 						},
+	// 						halogen: {
+	// 							fill: /*'#b6facf'*/ '#b6fae6'
+	// 						},
+	// 						nobleGas: {
+	// 							fill: '#b6f5fa'
+	// 						},
+	// 						alkali: {
+	// 							fill: /*'#fab6b6'*/ '#c4b9b9'
+	// 						},
+	// 						alkaline: {
+	// 							fill: /*'#faceb6'*/ '#e6b5b5'
+	// 						},
+	// 						transition: {
+	// 							fill: /*'#fae4b6'*/ '#fab6b6'
+	// 						},
+	// 						postTransition: {
+	// 							fill: /*'#ffce69'*/ '#fadab6'
+	// 						},
+	// 						lanthanoid: {
+	// 							fill: /*'#fae4b6'*/ '#e89292'
+	// 						},
+	// 						actinoid: {
+	// 							fill: /*'#ffce69'*/ '#de7e7e'
+	// 						}
+	// 					}
+	// 				},
+	// 				{
+	// 					name: 'state',
+	// 					// 1 = solid
+	// 					// 2 = liquid
+	// 					// 3 = gas
+	// 					// 4 = unknown
+	// 					values: {
+	// 						1: {
+	// 							fill: '#777'
+	// 						},
+	// 						2: {
+	// 							fill: '#bbb'
+	// 						},
+	// 						3: {
+	// 							fill: '#f2f2f2'
+	// 						},
+	// 						4: {
+	// 							fill: '#fff'
+	// 						}
+	// 					}
+	// 				}
+	// 			];
+	// 		}
+	// 	};
+		
+	// 	return views;
+
+	// }]);
 ;(function(app) {
 
 	'use strict';
@@ -28639,33 +28900,161 @@ if (typeof jQuery === 'undefined') {
 	app.
 	directive('chemicalElement',chemicalElement);
 
-	function chemicalElement() {
+	chemicalElement.$inject = ['trendViewer'];
+
+	function chemicalElement(trendViewer) {
 		var d = {
 			restrict: 'A',
 			link: link
 		};
 
+		return d;
+
 		function link(scope, el, attrs) {
+
 			var element = scope.$eval(attrs.chemicalElement),
-				$el = $(el[0]),
-				factor = 5,
-				svg = {
-					width: 180*factor,
-					height: 90*factor
-				},
-				rect = {
-					width: svg.width/18,
-					height: svg.height/9
+				$el = $(el[0]);
+
+			render({
+				factor: trendViewer.factor.get()
+			});
+
+			scope.$on('factor.up',function(e,factor) {
+				render({
+					factor: factor
+				});
+			});
+
+			scope.$on('factor.down',function(e,factor) {
+				render({
+					factor: factor
+				});				
+			});
+
+			function render(config) {
+				var factor = config.factor,
+					rect = {
+						width: 10*factor,
+						height: 10*factor
+					},
+					tspan = {
+						x: coordinate('x')+(rect.width/2)
+					};
+
+				$el.children('rect')
+					.attr('x',coordinate('x'))
+					.attr('y',coordinate('y'))
+					.attr('width',rect.width)
+					.attr('height',rect.height)
+					.attr('fill',fill);
+
+				$el.children('text')
+					.attr('x',coordinate('x'))
+					.attr('y',coordinate('y'))
+					.attr('text-anchor','middle');
+
+				$el.children('text').children('.ce-atomic-number')
+					.attr('x',tspan.x)
+					.attr('font-size',rect.width*0.15)
+					.attr('dy',rect.height*0.25);
+
+				$el.children('text').children('.ce-symbol')
+					.attr('x',tspan.x)
+					.attr('font-size',rect.width*0.2)
+					.attr('dy',rect.height*0.25);
+
+				$el.children('text').children('.ce-element')
+					.attr('x',tspan.x)
+					.attr('font-size',rect.width*0.15)
+					.attr('dy',rect.height*0.25);
+
+				function fill() {
+					var color;
+
+					angular.forEach(trendViewer.views, function(view) {
+						if(view.name === trendViewer.currentView) {
+							color = view.values[element[trendViewer.currentView]].fill;
+						}
+					});
+
+					return color;
 				}
 
-			$el.children('rect')
-				.attr('x',element.group*rect.width)
-				.attr('y',element.period*rect.height)
-				.attr('width',rect.width)
-				.attr('height',rect.height);
+				function coordinate(xOrY) {
+					var type = element['Type'],
+						oddBall = type === 'Lanthanide' || type === 'Actinide',
+						group = element['Group']-1,
+						period = element['Period']-1,
+						height = rect.height,
+						width = rect.width;
+
+					if(xOrY === 'y') {
+						if(oddBall && group !== 3) {
+							return (period+3)*height;
+						} else {
+							return period*height;
+						}
+					} else if (xOrY === 'x') {
+						if(oddBall) {
+							if(group >= 19) {
+								return (group-16)*width;
+							} else {
+								return group*width;
+							}
+						} else {
+							return group*width;
+						}
+					}
+				}
+			}
 		}
+	}
+
+})(angular.module('periodicTable'));
+;(function(app) {
+	'use strict';
+
+	app
+	.directive('periodicTable',periodicTable);
+
+	periodicTable.$inject = ['trendViewer'];
+
+	function periodicTable(trendViewer) {
+		var d = {
+			restrict: 'A',
+			link: link
+		};
 
 		return d;
+
+		function link(scope, element, attrs) {
+			var $el = $(element[0]);
+
+			render({
+				factor: trendViewer.factor.get()
+			});
+
+			scope.$on('factor.up',function(e,factor) {
+				render({
+					factor: factor
+				});
+			});
+
+			scope.$on('factor.down',function(e,factor) {
+				render({
+					factor: factor
+				});				
+			});
+
+			function render(config) {
+				var factor = config.factor;
+
+				$el
+				.attr('width',180*factor)
+				.attr('height',100*factor);				
+			}
+
+		}
 	}
 
 })(angular.module('periodicTable'));

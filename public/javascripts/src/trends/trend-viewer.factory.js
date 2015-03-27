@@ -1,60 +1,76 @@
-;(function(app,ChemicalElement) {
-
+;(function(app) {
 	'use strict';
 
 	app
-	.factory('chemicalElements',chemicalElements);
+	.factory('trendViewer',trendViewer);
 
-	chemicalElements.$inject = ['$http'];
+	function trendViewer() {
+		var views = [
+				{
+					name: 'Type',
+					values: {
+						'Nonmetal': {
+							fill: '#bdfab6'
+						},
+						'Noble Gas': {
+							fill: '#b6f5fa'
+						},
+						'Alkali Metal': {
+							fill: '#c4b9b9'
+						},
+						'Alkaline Earth Metal': {
+							fill: '#e6b5b5'
+						},
+						'Metalloid': {
+							fill: '#f0fab6'
+						},
+						'Halogen': {
+							fill: '#b6fae6'
+						},
+						'Metal': {
+							fill: '#fab6b6'
+						},
+						'Transition Metal': {
+							fill: '#fab6b6'
+						},
+						'Lanthanide': {
+							fill: '#e89292'
+						},
+						'Actinide': {
+							fill: '#de7e7e'
+						},
+						'Transactinide': {
+							fill: '#fadab6'
+						},
+						'': {
+							fill: '#fff'
+						}
+					}
+				}
+			],
+			factor = 6,
+			exports = {
+				currentView: views[0].name,
+				factor: {
+					get: function() {
+						return factor;
+					},
+					up: function() {
+						factor++;
+					},
+					down: function() {
+						if(factor > 1) {
+							factor--;
+						}
+					}
+				},
+				views: views
+			};
 
-	function chemicalElements($http) {
-
-		var elements = [];
-
-		Service.prototype = {
-			populate: populate,
-			getAll: getAll,
-			types: [
-				'Nonmetal',
-				'Noble Gas',
-				'Alkali Metal',
-				'Alkaline Earth Metal',
-				'Metalloid',
-				'Halogen',
-				'Metal',
-				'Transition Metal',
-				'Lanthanide',
-				'Actinide',
-				'Transactinide'
-			]
-		};
-
-		return new Service();
-
-		////////////////////////////
-
-		function Service() {
-
-		}
-
-		function populate() {
-			$http
-			.get('elements.json')
-			.then(function (JSONchemicalElements) {
-
-				angular.forEach(JSONchemicalElements.data,function(element) {
-					elements.push(new ChemicalElement(element));
-				});
-			});
-		}
-
-		function getAll() {
-			return elements;
-		}
-
+		return exports;
 	}
 
-})(angular.module('periodicTable'),ChemicalElement);
+})(angular.module('periodicTable'));
 
 	// 	var views = {
 	// 		// doesn't follow recursive get pattern...

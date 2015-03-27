@@ -7,14 +7,25 @@
 	<title>Periodic Trend Visualization</title>
 </head>
 <body>
-	<div ng-controller="PeriodicTableController as vm">
+	<div class="wrapper" ng-controller="PeriodicTableController as vm">
 		<h1>Periodic Table of Elements <small><i>visually understand the trends</i></small></h1>
-		<svg width="1800" height="900">
+		<small>Element data from <a href="http://www.data-explorer.com/data">Data Explorer</a></small>
+		<ul zoomer class="zoomer">
+			<li>
+				<button in class="btn btn-default glyphicon glyphicon-plus"></button>
+			</li>
+			<li>
+				<button out class="btn btn-default glyphicon glyphicon-minus"></button>
+			</li>
+		</ul>
+		<svg periodic-table>
 			<g chemical-element="element" ng-repeat="element in vm.chemicalElements">
 				<rect width="50" height="50"></rect>
-				<text>{{element.atomicNumber}}</text>
-				<text>{{element.symbol}}</text>
-				<text>{{element.name}}</text>
+				<text>
+					<tspan class="ce-atomic-number">{{element['Atomic Number']}}</tspan>
+					<tspan class="ce-symbol">{{element['Symbol']}}</tspan>
+					<tspan class="ce-element">{{element['Element']}}</tspan>
+				</text>
 			</g>
 		</svg>
 	</div>
