@@ -29787,12 +29787,16 @@ if (typeof jQuery === 'undefined') {
 				{
 					name: 'Valence Electrons',
 					values: function(element) {
-						var factor;
-						
-						if(element['Type'] === 'Lanthanide' || element['Type'] === 'Actinide') {
+						var factor,
+							type = element['Type'],
+							group = element['Group'];
+
+						if((group >= 1 && group <= 12) && (type !== 'Lanthanide' && type !== 'Actinide')) {
+							factor = group/30
+						} else if(group >= 13 && group <= 18) {
+							factor = (group-10)/30;	
+						} else if (type === 'Lanthanide' || type === 'Actinide') {
 							factor = 2/30;
-						} else {
-							factor = element['Group']/30;	
 						}
 						
 						return {
