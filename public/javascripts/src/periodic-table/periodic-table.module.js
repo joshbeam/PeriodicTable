@@ -1,5 +1,5 @@
 ;(function(angular) {
 	'use strict';
 
-	angular.module('periodicTable',[]);
+	angular.module('periodicTable',['ngRoute']);
 })(angular);

@@ -10,3 +10,21 @@
 	right: 40px;
 	bottom: 40px;
 }
+
+#loader {
+	position: relative;
+
+	img {
+		position: absolute;
+		top: -20px;
+	}
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: transparent;
+	background: rgba(255,255,255,0.75);
+	padding: 0.1em;
+}

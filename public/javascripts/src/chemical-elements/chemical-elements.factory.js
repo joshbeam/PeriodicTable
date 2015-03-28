@@ -38,14 +38,16 @@
 		}
 
 		function populate() {
-			$http
-			.get('elements.json')
-			.then(function (JSONchemicalElements) {
+			return $http
+					.get('elements.json')
+					.then(function (JSONchemicalElements) {
 
-				angular.forEach(JSONchemicalElements.data,function(element) {
-					elements.push(new ChemicalElement(element));
-				});
-			});
+						angular.forEach(JSONchemicalElements.data,function(element) {
+							elements.push(new ChemicalElement(element));
+						});
+
+						return elements;
+					});
 		}
 
 		function getAll() {

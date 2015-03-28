@@ -61,7 +61,7 @@
 				$el.children('text').children('.ce-atomic-number')
 					.attr('x',tspan.x)
 					.attr('font-size',rect.width*0.15)
-					.attr('dy',rect.height*0.25);
+					.attr('dy',rect.height*0.20);
 
 				$el.children('text').children('.ce-symbol')
 					.attr('x',tspan.x)
@@ -70,15 +70,20 @@
 
 				$el.children('text').children('.ce-element')
 					.attr('x',tspan.x)
+					.attr('font-size',rect.width*0.12)
+					.attr('dy',rect.height*0.20);
+
+				$el.children('text').children('.ce-atomic-weight')
+					.attr('x',tspan.x)
 					.attr('font-size',rect.width*0.15)
-					.attr('dy',rect.height*0.25);
+					.attr('dy',rect.height*0.20);
 
 				function fill() {
 					var color;
 
 					angular.forEach(trendViewer.views, function(view) {
-						if(view.name === trendViewer.currentView) {
-							color = view.values[element[trendViewer.currentView]].fill;
+						if(view.name === trendViewer.currentView.get()) {
+							color = view.values(element).fill;
 						}
 					});
 

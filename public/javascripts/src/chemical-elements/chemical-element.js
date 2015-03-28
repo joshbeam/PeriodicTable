@@ -15,6 +15,10 @@
 		this['Element'] = config['Element'];
 		this['Symbol'] = config['Symbol'];
 		this['Atomic Number'] = +config['Atomic Number'];
+		this['Atomic Weight'] = +config['Atomic Weight'];
+		this['Melting Point (K)'] = config['Melting Point (K)'];
+		this['Boiling Point (K)'] = config['Boiling Point (K)'];
+		this['Electronegativity'] = config['Electronegativity'];
 		this['Type'] = config['Type'];
 		this['Group'] = +config['Group'];
 		this['Period'] = +config['Period'];

@@ -7,9 +7,27 @@
 	<title>Periodic Trend Visualization</title>
 </head>
 <body>
-	<div class="wrapper" ng-controller="PeriodicTableController as vm">
-		<h1>Periodic Table of Elements <small><i>visually understand the trends</i></small></h1>
+	<div class="wrapper">
+		<h1>
+			Periodic Table of Elements <small><i>visually understand the trends</i></small>
+		</h1>
+		<ul class="list-inline" ng-controller="TrendViewerController as vm">
+			<li ng-repeat="view in vm.views">
+				<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name}}</button>
+			</li>
+			<li id="loader">
+				<img src="/images/loading.gif" ng-show="layout.loading" />
+			</li>
+		</ul>
+		<div ng-view></div>
+	</div>
+	<footer>
 		<small>Element data from <a href="http://www.data-explorer.com/data">Data Explorer</a></small>
+	</footer>
+
+	<script src="javascripts/dist/scripts.js"></script>
+
+	<script type="text/ng-template" id="periodic-table.html">
 		<ul zoomer class="zoomer">
 			<li>
 				<button in class="btn btn-default glyphicon glyphicon-plus"></button>
@@ -18,18 +36,17 @@
 				<button out class="btn btn-default glyphicon glyphicon-minus"></button>
 			</li>
 		</ul>
-		<svg periodic-table>
+		<svg periodic-table ng-cloak>
 			<g chemical-element="element" ng-repeat="element in vm.chemicalElements">
 				<rect width="50" height="50"></rect>
 				<text>
 					<tspan class="ce-atomic-number">{{element['Atomic Number']}}</tspan>
 					<tspan class="ce-symbol">{{element['Symbol']}}</tspan>
 					<tspan class="ce-element">{{element['Element']}}</tspan>
+					<tspan class="ce-atomic-weight">{{element['Atomic Weight']}}</tspan>
 				</text>
 			</g>
 		</svg>
-	</div>
-
-	<script src="javascripts/dist/scripts.js"></script>
+	</script>
 </body>
 </html>

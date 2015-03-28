@@ -5,22 +5,12 @@
 	app
 	.controller('PeriodicTableController',PeriodicTableController);
 
-	PeriodicTableController.$inject = ['$scope','chemicalElements'];
+	PeriodicTableController.$inject = ['$scope','$route','$location','elementsPrepService','trendViewer'];
 
-	function PeriodicTableController($scope,chemicalElements) {
+	function PeriodicTableController($scope,$route,$location,elementsPrepService,trendViewer) {
 		var vm = this;
 
-		activate();
-
-		$scope.$watch(function() {
-			return chemicalElements.getAll();
-		}, function (newVal) {
-			vm.chemicalElements = newVal;
-		},true);
-
-		function activate() {
-			chemicalElements.populate();
-		}
+		vm.chemicalElements = elementsPrepService;
 	}
 
 })(angular.module('periodicTable'));
