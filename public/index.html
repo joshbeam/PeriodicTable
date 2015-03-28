@@ -15,6 +15,9 @@
 			<li ng-repeat="view in vm.views">
 				<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name}}</button>
 			</li>
+			<li>
+				<input temperature-slider type="range" />
+			</li>
 			<li id="loader">
 				<img src="/images/loading.gif" ng-show="layout.loading" />
 			</li>
