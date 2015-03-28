@@ -11,7 +11,7 @@
 		<h1>
 			Periodic Table of Elements <small><i>visually understand the trends</i></small>
 		</h1>
-		<ul class="list-inline" ng-controller="TrendViewerController as vm">
+		<ul class="list-inline" ng-controller="TrendViewerController as vm" ng-cloak>
 			<li ng-repeat="view in vm.views">
 				<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name}}</button>
 			</li>
