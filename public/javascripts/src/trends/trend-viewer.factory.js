@@ -31,7 +31,7 @@
 								fill: '#b6fae6'
 							},
 							'Metal': {
-								fill: '#fab6b6'
+								fill: '#fac6b6'
 							},
 							'Transition Metal': {
 								fill: '#fab6b6'
@@ -128,7 +128,7 @@
 						if(element['Electronegativity'] === null) {
 							fill = '#fff';
 						} else {
-							fill = utils.shade('#f6f6a1',-(+element['Electronegativity'])/7);
+							fill = utils.shade('#ebeba2',-(+element['Electronegativity'])/6);
 						}
 
 						return {
