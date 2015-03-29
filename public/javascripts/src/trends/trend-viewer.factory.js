@@ -4,12 +4,18 @@
 	app
 	.factory('trendViewer',trendViewer);
 
-	trendViewer.$inject = ['utils'];
+	trendViewer.$inject = ['utils','ELEMENT'];
 
-	function trendViewer(utils) {
-		var views = [
+	function trendViewer(utils,ELEMENT) {
+		var WEIGHT = ELEMENT.WEIGHT,
+			TYPE = ELEMENT.TYPE,
+			GROUP = ELEMENT.GROUP,
+			BP = ELEMENT.BP,
+			MP = ELEMENT.MP,
+			EN = ELEMENT.EN,
+			views = [
 				{
-					name: 'Type',
+					name: TYPE,
 					values: function(element) {
 						return {
 							'Nonmetal': {
@@ -48,14 +54,14 @@
 							'': {
 								fill: '#fff'
 							}
-						}[element['Type']];
+						}[element[TYPE]];
 					}
 				},
 				{
-					name: 'Atomic Weight',
+					name: WEIGHT,
 					values: function(element) {
 						return {
-							fill: utils.shade('#c4ffd3',-(+element['Atomic Weight'])/400)
+							fill: utils.shade('#c4ffd3',-(+element[WEIGHT])/400)
 						};
 					}
 				},
@@ -63,8 +69,8 @@
 					name: 'Valence Electrons',
 					values: function(element) {
 						var factor,
-							type = element['Type'],
-							group = element['Group'];
+							type = element[TYPE],
+							group = element[GROUP];
 
 						if((group >= 1 && group <= 12) && (type !== 'Lanthanide' && type !== 'Actinide')) {
 							factor = group/30
@@ -84,8 +90,8 @@
 					values: function(element) {
 						var fill,
 							temp = temperature.k,
-							bp = element['Boiling Point (K)'],
-							mp = element['Melting Point (K)'],
+							bp = element[BP],
+							mp = element[MP],
 							solid = '#777',
 							liquid = '#bbb',
 							gas = '#f2f2f2',
@@ -121,14 +127,14 @@
 					}
 				},
 				{
-					name: 'Electronegativity',
+					name: EN,
 					values: function(element) {
 						var fill;
 
-						if(element['Electronegativity'] === null) {
+						if(element[EN] === null) {
 							fill = '#fff';
 						} else {
-							fill = utils.shade('#ebeba2',-(+element['Electronegativity'])/6);
+							fill = utils.shade('#ebeba2',-(+element[EN])/6);
 						}
 
 						return {

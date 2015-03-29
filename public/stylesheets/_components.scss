@@ -10,6 +10,14 @@
 	right: 40px;
 	top: 40px;
 	z-index: 999;
+
+	li:first-child {
+		margin-bottom: 0.25em;
+	}
+
+	button {
+		width: 40px;
+	}
 }
 
 #view-changer {

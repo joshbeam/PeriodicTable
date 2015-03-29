@@ -30042,6 +30042,22 @@ if (typeof jQuery === 'undefined') {
 	angular.module('periodicTable',['ngRoute']);
 })(angular);
 ;(function(app) {
+
+	app.constant('ELEMENT',{
+		TYPE: 'Type',
+		NAME: 'Element',
+		WEIGHT: 'Atomic Weight',
+		NUMBER: 'Atomic Number',
+		MP: 'Melting Point (K)',
+		BP: 'Boiling Point (K)',
+		EN: 'Electronegativity',
+		GROUP: 'Group',
+		PERIOD: 'Period',
+		SYMBOL: 'Symbol'
+	});
+
+})(angular.module('periodicTable'));
+;(function(app) {
 	'use strict';
 	
 	app
@@ -30145,12 +30161,18 @@ if (typeof jQuery === 'undefined') {
 	app
 	.factory('trendViewer',trendViewer);
 
-	trendViewer.$inject = ['utils'];
+	trendViewer.$inject = ['utils','ELEMENT'];
 
-	function trendViewer(utils) {
-		var views = [
+	function trendViewer(utils,ELEMENT) {
+		var WEIGHT = ELEMENT.WEIGHT,
+			TYPE = ELEMENT.TYPE,
+			GROUP = ELEMENT.GROUP,
+			BP = ELEMENT.BP,
+			MP = ELEMENT.MP,
+			EN = ELEMENT.EN,
+			views = [
 				{
-					name: 'Type',
+					name: TYPE,
 					values: function(element) {
 						return {
 							'Nonmetal': {
@@ -30189,14 +30211,14 @@ if (typeof jQuery === 'undefined') {
 							'': {
 								fill: '#fff'
 							}
-						}[element['Type']];
+						}[element[TYPE]];
 					}
 				},
 				{
-					name: 'Atomic Weight',
+					name: WEIGHT,
 					values: function(element) {
 						return {
-							fill: utils.shade('#c4ffd3',-(+element['Atomic Weight'])/400)
+							fill: utils.shade('#c4ffd3',-(+element[WEIGHT])/400)
 						};
 					}
 				},
@@ -30204,8 +30226,8 @@ if (typeof jQuery === 'undefined') {
 					name: 'Valence Electrons',
 					values: function(element) {
 						var factor,
-							type = element['Type'],
-							group = element['Group'];
+							type = element[TYPE],
+							group = element[GROUP];
 
 						if((group >= 1 && group <= 12) && (type !== 'Lanthanide' && type !== 'Actinide')) {
 							factor = group/30
@@ -30225,8 +30247,8 @@ if (typeof jQuery === 'undefined') {
 					values: function(element) {
 						var fill,
 							temp = temperature.k,
-							bp = element['Boiling Point (K)'],
-							mp = element['Melting Point (K)'],
+							bp = element[BP],
+							mp = element[MP],
 							solid = '#777',
 							liquid = '#bbb',
 							gas = '#f2f2f2',
@@ -30262,14 +30284,14 @@ if (typeof jQuery === 'undefined') {
 					}
 				},
 				{
-					name: 'Electronegativity',
+					name: EN,
 					values: function(element) {
 						var fill;
 
-						if(element['Electronegativity'] === null) {
+						if(element[EN] === null) {
 							fill = '#fff';
 						} else {
-							fill = utils.shade('#ebeba2',-(+element['Electronegativity'])/6);
+							fill = utils.shade('#ebeba2',-(+element[EN])/6);
 						}
 
 						return {
@@ -30500,103 +30522,109 @@ if (typeof jQuery === 'undefined') {
 	}
 
 })(angular.module('periodicTable'));
-;(function(global) {
+;(function(app) {
 
 	'use strict';
 
-	ChemicalElement.prototype = {
-		getProperty: getProperty
-	};
+	app
+	.factory('ChemicalElement',factory)
 
-	global.ChemicalElement = ChemicalElement;
-	
+	factory.$inject = ['ELEMENT'];
 
-	////////////////
+	function factory(ELEMENT) {
+		ChemicalElement.prototype = {
+			getProperty: getProperty
+		};
 
-	function ChemicalElement(config) {
-		this['Element'] = config['Element'];
-		this['Symbol'] = config['Symbol'];
-		this['Atomic Number'] = +config['Atomic Number'];
-		this['Atomic Weight'] = +config['Atomic Weight'];
-		this['Melting Point (K)'] = config['Melting Point (K)'];
-		this['Boiling Point (K)'] = config['Boiling Point (K)'];
-		this['Electronegativity'] = config['Electronegativity'];
-		this['Type'] = config['Type'];
-		this['Group'] = +config['Group'];
-		this['Period'] = +config['Period'];
-	}
+		////////////////
 
-	function getProperty(prop) {
-		if(prop in this) {
-			return this[prop];
-		}
-	}
-
-	function coordinate(atomicNumber) {
-		if(typeof atomicNumber !== 'number') {
-			throw SyntaxError('atomic number must be of type "number"');
+		function ChemicalElement(config) {
+			this[ELEMENT.NAME] = config[ELEMENT.NAME];
+			this[ELEMENT.SYMBOL] = config[ELEMENT.SYMBOL];
+			this[ELEMENT.NUMBER] = +config[ELEMENT.NUMBER];
+			this[ELEMENT.WEIGHT] = +config[ELEMENT.WEIGHT];
+			this[ELEMENT.MP] = config[ELEMENT.MP];
+			this[ELEMENT.BP] = config[ELEMENT.BP];
+			this[ELEMENT.EN] = config[ELEMENT.EN];
+			this[ELEMENT.TYPE] = config[ELEMENT.TYPE];
+			this[ELEMENT.GROUP] = +config[ELEMENT.GROUP];
+			this[ELEMENT.PERIOD] = +config[ELEMENT.PERIOD];
 		}
 
-		if(atomicNumber >= 5 && atomicNumber <= 10) {
-
-			return [atomicNumber+8,2];
-
-		} else if(atomicNumber >= 13 && atomicNumber <= 18) {
-
-			return [atomicNumber,3];
-
-		} else if(atomicNumber >= 19 && atomicNumber <= 36) {
-
-			return [atomicNumber-18,4];
-
-		} else if(atomicNumber >= 37 && atomicNumber <= 54) {
-
-			return [atomicNumber-36,5];
-
-		} else if(atomicNumber >= 57 && atomicNumber <= 71) {
-
-			return [0,6];
-
-		} else if(atomicNumber >= 89 && atomicNumber <= 103) {
-
-			return [0,7];
-
-		} else if(atomicNumber >= 72 && atomicNumber <= 86) {
-
-			return [atomicNumber-68,6];
-
-		} else if(atomicNumber >= 104 && atomicNumber <= 118) {
-
-			return [atomicNumber-100,7];
-
-		} else {
-
-			return {
-				1: [1,1],
-				3: [1,2],
-				4: [2,2],
-				11: [1,3],
-				12: [2,3],
-				55: [1,6],
-				56: [2,6],
-				87: [1,7],
-				88: [2,7]
-			}[atomicNumber];
-
+		function getProperty(prop) {
+			if(prop in this) {
+				return this[prop];
+			}
 		}
+
+		// function coordinate(atomicNumber) {
+		// 	if(typeof atomicNumber !== 'number') {
+		// 		throw SyntaxError('atomic number must be of type "number"');
+		// 	}
+
+		// 	if(atomicNumber >= 5 && atomicNumber <= 10) {
+
+		// 		return [atomicNumber+8,2];
+
+		// 	} else if(atomicNumber >= 13 && atomicNumber <= 18) {
+
+		// 		return [atomicNumber,3];
+
+		// 	} else if(atomicNumber >= 19 && atomicNumber <= 36) {
+
+		// 		return [atomicNumber-18,4];
+
+		// 	} else if(atomicNumber >= 37 && atomicNumber <= 54) {
+
+		// 		return [atomicNumber-36,5];
+
+		// 	} else if(atomicNumber >= 57 && atomicNumber <= 71) {
+
+		// 		return [0,6];
+
+		// 	} else if(atomicNumber >= 89 && atomicNumber <= 103) {
+
+		// 		return [0,7];
+
+		// 	} else if(atomicNumber >= 72 && atomicNumber <= 86) {
+
+		// 		return [atomicNumber-68,6];
+
+		// 	} else if(atomicNumber >= 104 && atomicNumber <= 118) {
+
+		// 		return [atomicNumber-100,7];
+
+		// 	} else {
+
+		// 		return {
+		// 			1: [1,1],
+		// 			3: [1,2],
+		// 			4: [2,2],
+		// 			11: [1,3],
+		// 			12: [2,3],
+		// 			55: [1,6],
+		// 			56: [2,6],
+		// 			87: [1,7],
+		// 			88: [2,7]
+		// 		}[atomicNumber];
+
+		// 	}
+		// }
+
+		return ChemicalElement;
 	}
 
-})(this);
-;(function(app,ChemicalElement) {
+})(angular.module('periodicTable'));
+;(function(app) {
 
 	'use strict';
 
 	app
 	.factory('chemicalElements',chemicalElements);
 
-	chemicalElements.$inject = ['$http'];
+	chemicalElements.$inject = ['$http','ChemicalElement'];
 
-	function chemicalElements($http) {
+	function chemicalElements($http,ChemicalElement) {
 
 		var elements = [];
 
@@ -30645,77 +30673,7 @@ if (typeof jQuery === 'undefined') {
 
 	}
 
-})(angular.module('periodicTable'),ChemicalElement);
-
-	// 	var views = {
-	// 		// doesn't follow recursive get pattern...
-	// 		// maybe use getAll and get
-	// 		get: function() {
-	// 			return [
-	// 				{
-	// 					name: 'metallicCharacter',
-	// 					// http://www.colorpicker.com/
-	// 					values: {
-	// 						nonmetal: {
-	// 							fill: /*'#e3fab6'*/ '#bdfab6'
-	// 						},
-	// 						metalloid: {
-	// 							fill: /*'#f7fab6'*/ '#f0fab6'
-	// 						},
-	// 						halogen: {
-	// 							fill: /*'#b6facf'*/ '#b6fae6'
-	// 						},
-	// 						nobleGas: {
-	// 							fill: '#b6f5fa'
-	// 						},
-	// 						alkali: {
-	// 							fill: /*'#fab6b6'*/ '#c4b9b9'
-	// 						},
-	// 						alkaline: {
-	// 							fill: /*'#faceb6'*/ '#e6b5b5'
-	// 						},
-	// 						transition: {
-	// 							fill: /*'#fae4b6'*/ '#fab6b6'
-	// 						},
-	// 						postTransition: {
-	// 							fill: /*'#ffce69'*/ '#fadab6'
-	// 						},
-	// 						lanthanoid: {
-	// 							fill: /*'#fae4b6'*/ '#e89292'
-	// 						},
-	// 						actinoid: {
-	// 							fill: /*'#ffce69'*/ '#de7e7e'
-	// 						}
-	// 					}
-	// 				},
-	// 				{
-	// 					name: 'state',
-	// 					// 1 = solid
-	// 					// 2 = liquid
-	// 					// 3 = gas
-	// 					// 4 = unknown
-	// 					values: {
-	// 						1: {
-	// 							fill: '#777'
-	// 						},
-	// 						2: {
-	// 							fill: '#bbb'
-	// 						},
-	// 						3: {
-	// 							fill: '#f2f2f2'
-	// 						},
-	// 						4: {
-	// 							fill: '#fff'
-	// 						}
-	// 					}
-	// 				}
-	// 			];
-	// 		}
-	// 	};
-		
-	// 	return views;
-
-	// }]);
+})(angular.module('periodicTable'));
 ;(function(app) {
 
 	'use strict';
@@ -30723,9 +30681,9 @@ if (typeof jQuery === 'undefined') {
 	app.
 	directive('chemicalElement',chemicalElement);
 
-	chemicalElement.$inject = ['trendViewer'];
+	chemicalElement.$inject = ['$window','utils','trendViewer','ELEMENT'];
 
-	function chemicalElement(trendViewer) {
+	function chemicalElement($window,utils,trendViewer,ELEMENT) {
 		var d = {
 			restrict: 'A',
 			link: link
@@ -30747,7 +30705,11 @@ if (typeof jQuery === 'undefined') {
 					all: all,
 					scale: scale,
 					fill: fill
-				};
+				},
+				TYPE = ELEMENT.TYPE,
+				NAME = ELEMENT.NAME,
+				GROUP = ELEMENT.GROUP,
+				PERIOD = ELEMENT.PERIOD;
 
 			render.all({factor: trendViewer.factor.get()});
 
@@ -30757,6 +30719,10 @@ if (typeof jQuery === 'undefined') {
 
 			scope.$on('temperature.change',function() {
 				render.fill();
+			});
+
+			$el.on('click',function() {
+				$window.open('http://en.wikipedia.org/wiki/'+element[NAME],'_blank');
 			});
 
 			function all(config) {
@@ -30819,10 +30785,10 @@ if (typeof jQuery === 'undefined') {
 
 
 				function coordinate(xOrY) {
-					var type = element['Type'],
+					var type = element[TYPE],
 						oddBall = type === 'Lanthanide' || type === 'Actinide',
-						group = element['Group']-1,
-						period = element['Period']-1,
+						group = element[GROUP]-1,
+						period = element[PERIOD]-1,
 						height = rect.height,
 						width = rect.width;
 

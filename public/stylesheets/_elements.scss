@@ -1,4 +1,19 @@
 svg {
 	margin: 0 auto;
 	display: block;
+
+	g.chemical-element {
+		cursor: pointer;
+		pointer-events: all;
+
+		&:hover {
+			rect {
+				fill: #333;
+			}
+
+			text {
+				fill: #fff;
+			}
+		}
+	}
 }

@@ -5,9 +5,9 @@
 	app.
 	directive('chemicalElement',chemicalElement);
 
-	chemicalElement.$inject = ['trendViewer'];
+	chemicalElement.$inject = ['$window','utils','trendViewer','ELEMENT'];
 
-	function chemicalElement(trendViewer) {
+	function chemicalElement($window,utils,trendViewer,ELEMENT) {
 		var d = {
 			restrict: 'A',
 			link: link
@@ -29,7 +29,11 @@
 					all: all,
 					scale: scale,
 					fill: fill
-				};
+				},
+				TYPE = ELEMENT.TYPE,
+				NAME = ELEMENT.NAME,
+				GROUP = ELEMENT.GROUP,
+				PERIOD = ELEMENT.PERIOD;
 
 			render.all({factor: trendViewer.factor.get()});
 
@@ -39,6 +43,10 @@
 
 			scope.$on('temperature.change',function() {
 				render.fill();
+			});
+
+			$el.on('click',function() {
+				$window.open('http://en.wikipedia.org/wiki/'+element[NAME],'_blank');
 			});
 
 			function all(config) {
@@ -101,10 +109,10 @@
 
 
 				function coordinate(xOrY) {
-					var type = element['Type'],
+					var type = element[TYPE],
 						oddBall = type === 'Lanthanide' || type === 'Actinide',
-						group = element['Group']-1,
-						period = element['Period']-1,
+						group = element[GROUP]-1,
+						period = element[PERIOD]-1,
 						height = rect.height,
 						width = rect.width;
 

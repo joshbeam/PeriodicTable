@@ -46,14 +46,14 @@
 	<script type="text/ng-template" id="periodic-table.html">
 		<ul zoomer id="zoomer">
 			<li>
-				<button in class="btn btn-default glyphicon glyphicon-plus"></button>
+				<button in class="btn btn-default">+</button>
 			</li>
 			<li>
-				<button out class="btn btn-default glyphicon glyphicon-minus"></button>
+				<button out class="btn btn-default">&mdash;</button>
 			</li>
 		</ul>
 		<svg periodic-table ng-cloak>
-			<g chemical-element="element" ng-repeat="element in vm.chemicalElements">
+			<g chemical-element="element" ng-repeat="element in vm.chemicalElements" class="chemical-element">
 				<rect width="50" height="50"></rect>
 				<text>
 					<tspan class="ce-atomic-number">{{element['Atomic Number']}}</tspan>

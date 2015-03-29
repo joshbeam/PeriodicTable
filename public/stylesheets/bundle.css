@@ -8721,6 +8721,19 @@ svg {
   display: block;
 }
 
+svg g.chemical-element {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+svg g.chemical-element:hover rect {
+  fill: #333;
+}
+
+svg g.chemical-element:hover text {
+  fill: #fff;
+}
+
 .wrapper {
   width: 100%;
   height: 100%;
@@ -8732,6 +8745,14 @@ svg {
   right: 40px;
   top: 40px;
   z-index: 999;
+}
+
+#zoomer li:first-child {
+  margin-bottom: 0.25em;
+}
+
+#zoomer button {
+  width: 40px;
 }
 
 #view-changer {
