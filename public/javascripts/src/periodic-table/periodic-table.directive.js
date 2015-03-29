@@ -21,16 +21,10 @@
 				factor: trendViewer.factor.get()
 			});
 
-			scope.$on('factor.up',function(e,factor) {
+			scope.$on('factor.change',function(e,factor) {
 				render({
 					factor: factor
 				});
-			});
-
-			scope.$on('factor.down',function(e,factor) {
-				render({
-					factor: factor
-				});				
 			});
 
 			function render(config) {

@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	concatCss = require('gulp-concat-css'),
 	jsFiles = [
 		'./bower_components/jquery-2.1.3.min/index.js',
+		'./bower_components/rangeslider.js/dist/rangeslider.js',
 		'./bower_components/angular/angular.js',
 		'./bower_components/angular-route/angular-route.js',
 		'./bower_components/bootstrap/dist/js/bootstrap.js',
@@ -28,6 +29,7 @@ var gulp = require('gulp'),
 
 gulp.task('css',function() {
 	gulp.src([
+		'./bower_components/rangeslider.js/dist/rangeslider.css',
 		'./bower_components/bootstrap/dist/css/bootstrap-theme.css',
 		'./bower_components/bootstrap/dist/css/bootstrap.css',
 		'./public/stylesheets/*.scss'

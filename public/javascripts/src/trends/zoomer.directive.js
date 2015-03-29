@@ -20,13 +20,14 @@
 
 			$li.children('button[in]').on('click',function() {
 				trendViewer.factor.up();
-				$rootScope.$broadcast('factor.up',trendViewer.factor.get());
+				$rootScope.$broadcast('factor.change',trendViewer.factor.get());
 			});
 
 			$li.children('button[out]').on('click',function() {
 				trendViewer.factor.down();
-				$rootScope.$broadcast('factor.down',trendViewer.factor.get());
+				$rootScope.$broadcast('factor.change',trendViewer.factor.get());
 			});
+
 		}
 	}
 

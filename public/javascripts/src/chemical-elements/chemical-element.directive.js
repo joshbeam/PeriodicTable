@@ -18,25 +18,35 @@
 		function link(scope, el, attrs) {
 
 			var element = scope.$eval(attrs.chemicalElement),
-				$el = $(el[0]);
+				$el = $(el[0]),
+				$rect = $el.children('rect'),
+				$text = $el.children('text'),
+				$atomicNumber = $text.children('.ce-atomic-number'),
+				$symbol = $text.children('.ce-symbol'),
+				$elementName = $text.children('.ce-element'),
+				$weight = $text.children('.ce-atomic-weight'),
+				render = {
+					all: all,
+					scale: scale,
+					fill: fill
+				};
 
-			render({
-				factor: trendViewer.factor.get()
+			render.all({factor: trendViewer.factor.get()});
+
+			scope.$on('factor.change',function(e,factor) {
+				render.scale({factor: factor});
 			});
 
-			scope.$on('factor.up',function(e,factor) {
-				render({
-					factor: factor
-				});
+			scope.$on('temperature.change',function() {
+				render.fill();
 			});
 
-			scope.$on('factor.down',function(e,factor) {
-				render({
-					factor: factor
-				});				
-			});
+			function all(config) {
+				scale(config);
+				fill();
+			}
 
-			function render(config) {
+			function scale(config) {
 				var factor = config.factor,
 					rect = {
 						width: 10*factor,
@@ -46,49 +56,49 @@
 						x: coordinate('x')+(rect.width/2)
 					};
 
-				$el.children('rect')
-					.attr('x',coordinate('x'))
-					.attr('y',coordinate('y'))
+				// scale
+				$rect
 					.attr('width',rect.width)
-					.attr('height',rect.height)
-					.attr('fill',fill);
+					.attr('height',rect.height);
 
-				$el.children('text')
+				$atomicNumber
+					.attr('font-size',rect.width*0.15)
+					.attr('dy',rect.height*0.20);
+
+				$symbol
+					.attr('font-size',rect.width*0.2)
+					.attr('dy',rect.height*0.25);
+
+				$elementName
+					.attr('font-size',rect.width*0.12)
+					.attr('dy',rect.height*0.20);
+
+				$weight
+					.attr('font-size',rect.width*0.15)
+					.attr('dy',rect.height*0.20);
+
+				// position
+				$rect
+					.attr('x',coordinate('x'))
+					.attr('y',coordinate('y'));
+
+				$text
 					.attr('x',coordinate('x'))
 					.attr('y',coordinate('y'))
 					.attr('text-anchor','middle');
 
-				$el.children('text').children('.ce-atomic-number')
-					.attr('x',tspan.x)
-					.attr('font-size',rect.width*0.15)
-					.attr('dy',rect.height*0.20);
+				$atomicNumber
+					.attr('x',tspan.x);
 
-				$el.children('text').children('.ce-symbol')
-					.attr('x',tspan.x)
-					.attr('font-size',rect.width*0.2)
-					.attr('dy',rect.height*0.25);
+				$symbol
+					.attr('x',tspan.x);
 
-				$el.children('text').children('.ce-element')
-					.attr('x',tspan.x)
-					.attr('font-size',rect.width*0.12)
-					.attr('dy',rect.height*0.20);
+				$elementName
+					.attr('x',tspan.x);
 
-				$el.children('text').children('.ce-atomic-weight')
-					.attr('x',tspan.x)
-					.attr('font-size',rect.width*0.15)
-					.attr('dy',rect.height*0.20);
+				$weight
+					.attr('x',tspan.x);
 
-				function fill() {
-					var color;
-
-					angular.forEach(trendViewer.views, function(view) {
-						if(view.name === trendViewer.currentView.get()) {
-							color = view.values(element).fill;
-						}
-					});
-
-					return color;
-				}
 
 				function coordinate(xOrY) {
 					var type = element['Type'],
@@ -117,6 +127,24 @@
 					}
 				}
 			}
+
+			function fill() {
+				$rect
+					.attr('fill',bg);
+
+				function bg() {
+					var color;
+
+					angular.forEach(trendViewer.views, function(view) {
+						if(view.name === trendViewer.currentView.get()) {
+							color = view.values(element).fill;
+						}
+					});
+
+					return color;					
+				}
+			}
+
 		}
 	}
 

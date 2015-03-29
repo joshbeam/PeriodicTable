@@ -7,22 +7,35 @@
 	<title>Periodic Trend Visualization</title>
 </head>
 <body>
+	<!-- overall wrapper for the app -->
 	<div class="wrapper">
+
 		<h1>
 			Periodic Table of Elements <small><i>visually understand the trends</i></small>
 		</h1>
-		<ul class="list-inline" ng-controller="TrendViewerController as vm" ng-cloak>
-			<li ng-repeat="view in vm.views">
-				<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name}}</button>
-			</li>
-			<li>
-				<input temperature-slider type="range" />
-			</li>
-			<li id="loader">
-				<img src="/images/loading.gif" ng-show="layout.loading" />
-			</li>
-		</ul>
+
+		<!-- start TrendViewerController -->
+		<div ng-controller="TrendViewerController as vm" ng-cloak>
+			<ul class="list-inline" id="view-changer">
+				<li ng-repeat="view in vm.views">
+					<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name}}</button>
+				</li>
+				<li id="loader">
+					<img src="/images/loading.gif" ng-show="layout.loading" />
+				</li>
+			</ul>
+
+			<div id="temperature-controls" ng-if="vm.currentView === 'Phase'">
+				<input temperature-slider id="temperature-slider" type="range" max="6000" step="1" />
+				<input type="text" id="temperature-reading" />
+				<span id="temperature-reading-label"></span>
+			</div>
+		</div>
+		<!-- end TrendViewerController -->
+
+		<!-- template -->
 		<div ng-view></div>
+
 	</div>
 	<footer>
 		<small>Element data from <a href="http://www.data-explorer.com/data">Data Explorer</a> and <a href="http://wikipedia.org">Wikipedia</a></small>
@@ -31,7 +44,7 @@
 	<script src="javascripts/dist/scripts.js"></script>
 
 	<script type="text/ng-template" id="periodic-table.html">
-		<ul zoomer class="zoomer">
+		<ul zoomer id="zoomer">
 			<li>
 				<button in class="btn btn-default glyphicon glyphicon-plus"></button>
 			</li>

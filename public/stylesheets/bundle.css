@@ -1,3 +1,94 @@
+.rangeslider,
+.rangeslider__fill {
+  background: #e6e6e6;
+  display: block;
+  height: 20px;
+  width: 100%;
+  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.rangeslider {
+  position: relative;
+}
+
+.rangeslider--disabled {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+}
+
+.rangeslider__fill {
+  background: #00ff00;
+  position: absolute;
+  top: 0;
+}
+
+.rangeslider__handle {
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -10px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  background-image: -o-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.rangeslider__handle:after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.13)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+  background-image: -o-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.rangeslider__handle:active {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.12)));
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+  background-image: -o-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+}
+
+input[type="range"]:focus + .rangeslider .rangeslider__handle {
+  -webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+  -moz-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+}
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -861,8 +952,8 @@ th {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url("../fonts/glyphicons-halflings-regular.eot");
-  src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format('embedded-opentype'), url("../fonts/glyphicons-halflings-regular.woff2") format('woff2'), url("../fonts/glyphicons-halflings-regular.woff") format('woff'), url("../fonts/glyphicons-halflings-regular.ttf") format('truetype'), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format('svg');
+  src: url("../../bootstrap/dist/fonts/glyphicons-halflings-regular.eot");
+  src: url("../../bootstrap/dist/fonts/glyphicons-halflings-regular.eot?#iefix") format('embedded-opentype'), url("../../bootstrap/dist/fonts/glyphicons-halflings-regular.woff2") format('woff2'), url("../../bootstrap/dist/fonts/glyphicons-halflings-regular.woff") format('woff'), url("../../bootstrap/dist/fonts/glyphicons-halflings-regular.ttf") format('truetype'), url("../../bootstrap/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format('svg');
 }
 
 .glyphicon {
@@ -8636,10 +8727,15 @@ svg {
   box-sizing: border-box;
 }
 
-.zoomer {
+#zoomer {
   position: fixed;
   right: 40px;
-  bottom: 40px;
+  top: 40px;
+  z-index: 999;
+}
+
+#view-changer {
+  min-width: 650px;
 }
 
 #loader {
@@ -8651,13 +8747,38 @@ svg {
   top: -20px;
 }
 
+#temperature-controls {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 1em;
+  z-index: 9;
+}
+
+#temperature-reading {
+  width: 50px;
+  color: #ccc;
+  border: 1px solid #ccc;
+  margin: 1em 0 0 0;
+  padding: 0.25em;
+  text-align: right;
+}
+
+#temperature-reading-label {
+  color: #ccc;
+}
+
 footer {
   position: fixed;
   bottom: 0;
-  left: 0;
+  right: 0;
   background: transparent;
   background: rgba(255, 255, 255, 0.75);
   padding: 0.1em;
+  z-index: 99;
 }
 
 body,
@@ -8669,7 +8790,7 @@ html {
 }
 
 ul.unstyled,
-.zoomer {
+#zoomer {
   list-style-type: none;
 }
 
