@@ -1,16 +1,18 @@
 ;(function(app) {
 
 	app.constant('ELEMENT',{
-		TYPE: 'Type',
-		NAME: 'Element',
-		WEIGHT: 'Atomic Weight',
-		NUMBER: 'Atomic Number',
-		MP: 'Melting Point (K)',
-		BP: 'Boiling Point (K)',
-		EN: 'Electronegativity',
-		GROUP: 'Group',
-		PERIOD: 'Period',
-		SYMBOL: 'Symbol'
+		TYPE: 'type',
+		NAME: 'element',
+		WEIGHT: 'atomicWeight',
+		NUMBER: 'atomicNumber',
+		MP: 'meltingPoint',
+		BP: 'boilingPoint',
+		EN: 'electronegativity',
+		GROUP: 'group',
+		PERIOD: 'period',
+		SYMBOL: 'symbol',
+		VE: 'valenceElectrons',
+		PHASE: 'phase'
 	});
 
 })(angular.module('periodicTable'));

@@ -39,7 +39,7 @@
 
 		function populate() {
 			return $http
-					.get('elements.json')
+					.get('camelizedElements.json')
 					.then(function (JSONchemicalElements) {
 
 						angular.forEach(JSONchemicalElements.data,function(element) {

@@ -18,7 +18,7 @@
 		<div ng-controller="TrendViewerController as vm" ng-cloak>
 			<ul class="list-inline" id="view-changer">
 				<li ng-repeat="view in vm.views">
-					<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name}}</button>
+					<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name | camelToNormal}}</button>
 				</li>
 				<li id="loader">
 					<img src="/images/loading.gif" ng-show="layout.loading" />
@@ -56,10 +56,10 @@
 			<g chemical-element="element" ng-repeat="element in vm.chemicalElements" class="chemical-element">
 				<rect width="50" height="50"></rect>
 				<text>
-					<tspan class="ce-atomic-number">{{element['Atomic Number']}}</tspan>
-					<tspan class="ce-symbol">{{element['Symbol']}}</tspan>
-					<tspan class="ce-element">{{element['Element']}}</tspan>
-					<tspan class="ce-atomic-weight">{{element['Atomic Weight']}}</tspan>
+					<tspan class="ce-atomic-number">{{element[vm.ELEMENT.NUMBER]}}</tspan>
+					<tspan class="ce-symbol">{{element[vm.ELEMENT.SYMBOL]}}</tspan>
+					<tspan class="ce-element">{{element[vm.ELEMENT.NAME]}}</tspan>
+					<tspan class="ce-atomic-weight">{{element[vm.ELEMENT.WEIGHT] | roundDecimal:3}}</tspan>
 				</text>
 			</g>
 		</svg>

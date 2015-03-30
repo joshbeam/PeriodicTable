@@ -13,6 +13,8 @@
 			BP = ELEMENT.BP,
 			MP = ELEMENT.MP,
 			EN = ELEMENT.EN,
+			VE = ELEMENT.VE,
+			PHASE = ELEMENT.PHASE,
 			views = [
 				{
 					name: TYPE,
@@ -66,7 +68,7 @@
 					}
 				},
 				{
-					name: 'Valence Electrons',
+					name: VE,
 					values: function(element) {
 						var factor,
 							type = element[TYPE],
@@ -86,7 +88,7 @@
 					}
 				},
 				{
-					name: 'Phase',
+					name: PHASE,
 					values: function(element) {
 						var fill,
 							temp = temperature.k,

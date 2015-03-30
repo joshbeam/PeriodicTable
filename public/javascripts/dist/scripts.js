@@ -30044,16 +30044,18 @@ if (typeof jQuery === 'undefined') {
 ;(function(app) {
 
 	app.constant('ELEMENT',{
-		TYPE: 'Type',
-		NAME: 'Element',
-		WEIGHT: 'Atomic Weight',
-		NUMBER: 'Atomic Number',
-		MP: 'Melting Point (K)',
-		BP: 'Boiling Point (K)',
-		EN: 'Electronegativity',
-		GROUP: 'Group',
-		PERIOD: 'Period',
-		SYMBOL: 'Symbol'
+		TYPE: 'type',
+		NAME: 'element',
+		WEIGHT: 'atomicWeight',
+		NUMBER: 'atomicNumber',
+		MP: 'meltingPoint',
+		BP: 'boilingPoint',
+		EN: 'electronegativity',
+		GROUP: 'group',
+		PERIOD: 'period',
+		SYMBOL: 'symbol',
+		VE: 'valenceElectrons',
+		PHASE: 'phase'
 	});
 
 })(angular.module('periodicTable'));
@@ -30156,6 +30158,30 @@ if (typeof jQuery === 'undefined') {
 
 
 ;(function(app) {
+
+	app.filter('camelToNormal',camelToNormal)
+
+	function camelToNormal() {
+		return function(input) {
+			result = input.replace(/([A-Z])/g, ' $1');
+
+			return result.charAt(0).toUpperCase() + result.slice(1);
+		}
+	}
+
+})(angular.module('periodicTable'));
+;(function(app) {
+
+	app.filter('roundDecimal',roundDecimal)
+
+	function roundDecimal() {
+		return function(input,places) {
+			return input.toFixed(+places);
+		}
+	}
+
+})(angular.module('periodicTable'));
+;(function(app) {
 	'use strict';
 
 	app
@@ -30170,6 +30196,8 @@ if (typeof jQuery === 'undefined') {
 			BP = ELEMENT.BP,
 			MP = ELEMENT.MP,
 			EN = ELEMENT.EN,
+			VE = ELEMENT.VE,
+			PHASE = ELEMENT.PHASE,
 			views = [
 				{
 					name: TYPE,
@@ -30223,7 +30251,7 @@ if (typeof jQuery === 'undefined') {
 					}
 				},
 				{
-					name: 'Valence Electrons',
+					name: VE,
 					values: function(element) {
 						var factor,
 							type = element[TYPE],
@@ -30243,7 +30271,7 @@ if (typeof jQuery === 'undefined') {
 					}
 				},
 				{
-					name: 'Phase',
+					name: PHASE,
 					values: function(element) {
 						var fill,
 							temp = temperature.k,
@@ -30656,7 +30684,7 @@ if (typeof jQuery === 'undefined') {
 
 		function populate() {
 			return $http
-					.get('elements.json')
+					.get('camelizedElements.json')
 					.then(function (JSONchemicalElements) {
 
 						angular.forEach(JSONchemicalElements.data,function(element) {
@@ -30881,12 +30909,13 @@ if (typeof jQuery === 'undefined') {
 	app
 	.controller('PeriodicTableController',PeriodicTableController);
 
-	PeriodicTableController.$inject = ['$scope','$route','$location','elementsPrepService','trendViewer'];
+	PeriodicTableController.$inject = ['$scope','$route','$location','elementsPrepService','trendViewer','ELEMENT'];
 
-	function PeriodicTableController($scope,$route,$location,elementsPrepService,trendViewer) {
+	function PeriodicTableController($scope,$route,$location,elementsPrepService,trendViewer,ELEMENT) {
 		var vm = this;
 
 		vm.chemicalElements = elementsPrepService;
+		vm.ELEMENT = ELEMENT;
 	}
 
 })(angular.module('periodicTable'));
