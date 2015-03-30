@@ -16,10 +16,10 @@
 			}
 		})
 		.when('/',{
-			redirectTo: '/Type'
+			redirectTo: '/type'
 		})
 		.otherwise({
-			redirectTo: '/'
+			redirectTo: '/type'
 		});
 
 		function elementsPrepService(chemicalElements) {
