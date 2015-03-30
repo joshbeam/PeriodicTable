@@ -48,9 +48,9 @@ gulp.task('js',function() {
 	return gulp.src(jsFiles)
 		.pipe(concat('scripts.js'))
 		.pipe(gulp.dest('./public/javascripts/dist'))
-		.pipe(uglify())
 		.pipe(rename('scripts.min.js'))
-		.pipe(gulp.dest('.public/javascripts/dist'));
+		.pipe(uglify())
+		.pipe(gulp.dest('./public/javascripts/dist'));
 });
 
 gulp.task('watch',function() {

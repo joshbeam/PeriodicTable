@@ -5,9 +5,9 @@
 	app
 	.controller('PeriodicTableController',PeriodicTableController);
 
-	PeriodicTableController.$inject = ['$scope','$route','$location','elementsPrepService','trendViewer','ELEMENT'];
+	PeriodicTableController.$inject = ['$scope','$route','$location','elementsPrepService','ELEMENT'];
 
-	function PeriodicTableController($scope,$route,$location,elementsPrepService,trendViewer,ELEMENT) {
+	function PeriodicTableController($scope,$route,$location,elementsPrepService,ELEMENT) {
 		var vm = this;
 
 		vm.chemicalElements = elementsPrepService;

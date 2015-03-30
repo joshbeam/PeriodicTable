@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="periodicTable">
 <head>
-	<link href="stylesheets/bundle.css" rel="stylesheet" type="text/css" />
+	<link href="stylesheets/bundle.min.css" rel="stylesheet" type="text/css" />
 
 	<meta charset="utf-8">
 	<title>Periodic Trend Visualization</title>
@@ -21,11 +21,11 @@
 					<button class="btn btn-default" ng-click="vm.changeView(view.name)" ng-class="{active: view.name === vm.currentView}">{{view.name | camelToNormal}}</button>
 				</li>
 				<li id="loader">
-					<img src="/images/loading.gif" ng-show="layout.loading" />
+					<img src="/images/loading.gif" ng-show="layout.loading" width="40" height="40" />
 				</li>
 			</ul>
 
-			<div id="temperature-controls" ng-if="vm.currentView === 'Phase'">
+			<div id="temperature-controls" ng-if="vm.currentView === vm.ELEMENT.PHASE">
 				<input temperature-slider id="temperature-slider" type="range" max="6000" step="1" />
 				<input type="text" id="temperature-reading" />
 				<span id="temperature-reading-label"></span>
@@ -41,7 +41,7 @@
 		<small>Element data from <a href="http://www.data-explorer.com/data">Data Explorer</a> and <a href="http://wikipedia.org">Wikipedia</a></small>
 	</footer>
 
-	<script src="javascripts/dist/scripts.js"></script>
+	<script src="javascripts/dist/scripts.min.js"></script>
 
 	<script type="text/ng-template" id="periodic-table.html">
 		<ul zoomer id="zoomer">

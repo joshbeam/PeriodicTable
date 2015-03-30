@@ -22,6 +22,8 @@
 			redirectTo: '/type'
 		});
 
+		elementsPrepService.$inject = ['chemicalElements'];
+
 		function elementsPrepService(chemicalElements) {
 			// We don't need to call $http.get every time
 			if(chemicalElements.getAll().length === 0) {
