@@ -30099,6 +30099,8 @@ if (typeof jQuery === 'undefined') {
 
 (function(app) {
 	
+	'use strict';
+
 	app.run(run);
 	
 	run.$inject = ['$rootScope','$timeout'];
